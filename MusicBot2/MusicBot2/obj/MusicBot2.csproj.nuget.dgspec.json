@@ -52,15 +52,15 @@
           "dependencies": {
             "Discord.Net": {
               "target": "Package",
-              "version": "[3.17.4, )"
+              "version": "[3.18.0, )"
             },
             "Discord.Net.Interactions": {
               "target": "Package",
-              "version": "[3.17.4, )"
+              "version": "[3.18.0, )"
             },
             "Microsoft.Extensions.DependencyInjection": {
               "target": "Package",
-              "version": "[9.0.7, )"
+              "version": "[10.0.1, )"
             },
             "NAudio": {
               "target": "Package",
@@ -70,9 +70,13 @@
               "target": "Package",
               "version": "[1.0.0, )"
             },
+            "System.Data.SqlClient": {
+              "target": "Package",
+              "version": "[4.9.0, )"
+            },
             "YoutubeExplode": {
               "target": "Package",
-              "version": "[6.5.4, )"
+              "version": "[6.5.6, )"
             }
           },
           "imports": [

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MusicBot2")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+42ff7cbb1731650f8f068a5750afc3864265856c")]
 [assembly: System.Reflection.AssemblyProductAttribute("MusicBot2")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MusicBot2")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

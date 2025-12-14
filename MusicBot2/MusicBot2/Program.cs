@@ -18,7 +18,10 @@ using AngleSharp.Dom;
 using YoutubeExplode.Search;
 using System.Text.RegularExpressions;
 using System.Text;
+using System.Data.SqlClient;
+using System.Data;
 using System.Diagnostics;
+
 //ear rape之後會死掉?? 還是本來就會死掉? 死掉原因尚不明
 //10/15 11:34  又好像不會了? 電腦剛重啟效能不足?
 //待處理 looping & relate同時開啟時 
@@ -41,8 +44,9 @@ public class Program
     private bool _RelateSwitch = true;
     private string _LastPlayingName = "";
     private bool _isEarRapeOn = false;
+    string connectionString = "Server=(localdb)\\MSSQLLocalDB;Database=master;Trusted_Connection=True;";
     #endregion
-    
+
     #region 基礎設定
     public static Task Main(string[] args) => new Program().RunBotAsync();
     public async Task RunBotAsync()
@@ -195,6 +199,10 @@ public class Program
         else if (cmd.ToLower().StartsWith("e") || cmd.StartsWith("爆"))
         {
             await EarRapeAsync(channel, user);
+        }
+        else if(cmd.ToLower().StartsWith("qry"))
+        {
+            await qryData(channel, user);
         }
         else
         {
@@ -478,6 +486,32 @@ public class Program
         if (_isEarRapeOn) await channel.SendMessageAsync("https://anon-tokyo.com/image?frame=18288&episode=4");
         else await channel.SendMessageAsync("https://anon-tokyo.com/image?frame=22448&episode=7");
     }
+    private async Task qryData(IMessageChannel channel, SocketGuildUser user)
+    {
+        string query = "exec prGetTable1";
+        using (SqlConnection conn = new SqlConnection(connectionString))
+        {
+            try
+            {
+                conn.Open();
+                SqlCommand command = new SqlCommand(query, conn);
+                SqlDataReader reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    // 假設 table1 有 id, name 欄位
+                    await channel.SendMessageAsync($"欄1: {reader["Table_Column1"]}, 欄2: {reader["Table_Column2"]}");
+
+                }
+
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("錯誤：" + ex.Message);
+            }
+        }
+    }
     #endregion
 
     #region 撥放音樂
@@ -519,11 +553,11 @@ public class Program
 
         try
         {
-            if(songUrl.Contains(""))
+            if(songUrl.Contains("bili"))
             {
                 filepath = await DownloadBilibiliAudioAsync(songUrl);
             }
-            else if(songUrl.Contains(""))
+            else if(songUrl.Contains("youtube"))
             {
                 filepath = await DownloadAudioAsync(songUrl);
             }
